@@ -37,6 +37,7 @@ Authorization occurs through environment variables, namely: `BOT_TOKET`.
 #### Discord channels
 
 The bot will post pictures only to channels that exist in `channels.json`.
+
 You must enter the id of the channels in `channels.json`.
 
 ## Run
