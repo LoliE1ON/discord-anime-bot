@@ -40,12 +40,20 @@ The bot will post pictures only to channels that exist in `channels.json`.
 
 You must enter the id of the channels in `channels.json`.
 
-And do not forget to invite the bot to the servers in which it will post pictures
+Invite the bot to the servers in which it will post pictures.
 
 
 ## Run
+
 The bot is launched from the root of the project:
+
 ```bash
 node main.js
 ```
+You can use Heroku for this, the Procfile file is created and configured.
+
+## License
+
+MIT
+
 
