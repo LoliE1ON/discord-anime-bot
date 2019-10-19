@@ -39,7 +39,7 @@ Authorization occurs through environment variables, namely: `BOT_TOKET` `.env fi
 
 The bot will post pictures only to channels that exist in `channels.json`.
 
-You must enter the id of the channels in `channels.json`.
+You must enter the ID of the channels in `channels.json`.
 
 Invite the bot to the servers in which it will post pictures.
 
