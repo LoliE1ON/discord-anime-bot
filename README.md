@@ -33,7 +33,7 @@ npm i
 
 #### Authorization, Bot token
 
-Authorization occurs through environment variables, namely: `BOT_TOKET`.
+Authorization occurs through environment variables, namely: `BOT_TOKET` `.env file`.
 
 #### Discord channels
 
