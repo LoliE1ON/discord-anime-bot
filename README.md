@@ -1,5 +1,6 @@
 # Discord anime bot
 
+[![](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/e1on)
 [![Discord](https://discordapp.com/api/guilds/509065700401348630/widget.png)](http://discord.gg/fTHssTP)
 
 This is a bot for discord.
