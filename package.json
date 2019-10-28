@@ -1,25 +1,22 @@
 {
-  "name": "Discord anime bot",
+  "name": "DiscordAnimeBot",
   "version": "1.0.0",
   "description": "This is a bot for discord. He posts random anime pictures with an interval of 30 minutes in the channels you set.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js",
     "dev": "nodemon main.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Loli E1ON",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
     "cron": "^1.7.2",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "edit-file": "^0.3.0"
-  },
-  "devDependencies": {
+    "edit-file": "^0.3.0",
     "nodemon": "^1.19.4"
   }
 }

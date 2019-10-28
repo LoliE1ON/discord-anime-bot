@@ -1,55 +1,49 @@
-// Libraries
-const axios = require('axios')
-const cheerio = require('cheerio')
-const cron = require('cron')
+const axios = require('axios');
+const cheerio = require('cheerio');
+const cron = require('cron');
 
-// List of channels
-let channels = require("./channels.json")
-
-/*
-*  Class Bot
-*/
 module.exports = class Bot {
 
     constructor(client) {
 
+        // Discord client
         this.client = client;
 
+        // List of channels
+        this.channels = require("../config/channels.json");
+
+        // Cron task execution time
+        this.cronTaskExecutionTime = "*/1 * * * *";
+
         // Run bot
-        this.run().catch((e) => {
-            console.log(e)
-        })
+        this.cron().catch((e) => console.log(e))
 
     }
 
-    // Run bot
-    async run() {
-
-        // Cron
-        this.cron();
-
-    }
-
-    // Request message every 30 min
+    /**
+     * Create and execute cron task
+     * @returns {Promise<void>}
+     */
     async cron() {
 
-        // Cron job
-        this.cronJob = new cron.CronJob('*/30 * * * *', () => {
+        // Create cron task
+        this.cronJob = new cron.CronJob(this.cronTaskExecutionTime, () => {
 
-            // Fetch image
-            this.request().then(image => {
+            // Get random image
+            this.getImage().then(image => {
 
                 if (image.length > 0) {
 
-                    for (let channel of channels.list) {
+                    for (let channel of this.channels.list) {
 
-                        // Channel id
-                        let discord = this.client.channels.get(channel);
+                        console.log(channel);
+                        // Discord channel
+                        let discordChannel = this.client.channels.get(channel);
 
                         // Send message
-                        discord.send("", {files: [image]});
-
+                        discordChannel.send("", {files: [image]});
                         console.log(`Request message ${image}`)
+
                     }
 
                 }
@@ -63,8 +57,11 @@ module.exports = class Bot {
 
     }
 
-    // Get random image
-    async request() {
+    /**
+     * Parse random image
+     * @returns {Promise<*>}
+     */
+    async getImage() {
 
         try {
 

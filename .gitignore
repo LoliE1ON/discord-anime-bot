@@ -1,5 +1,7 @@
 # Libraries
 node_modules
 
+package-lock.json
+
 # Editor directories and files
 .idea
