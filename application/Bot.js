@@ -13,7 +13,7 @@ module.exports = class Bot {
         this.channels = require("../config/channels.json");
 
         // Cron task execution time
-        this.cronTaskExecutionTime = "*/1 * * * *";
+        this.cronTaskExecutionTime = "*/30 * * * *";
 
         // Run bot
         this.cron().catch((e) => console.log(e))
