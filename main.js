@@ -1,12 +1,14 @@
-const Bot = require("./application/Bot.js");
 const Discord = require('discord.js');
 const env = require('dotenv').config().parsed;
-
-// Discord client
 const client = new Discord.Client();
 
 // Run bot
-client.on('ready', () => new Bot(client));
+client.on('ready', () => {
+
+    const Bot = new (require("./application/Bot.js"))(client);
+    Bot.run();
+
+});
 
 // Login bot
 client.login(env.BOT_TOKEN);

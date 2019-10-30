@@ -1,50 +1,52 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const cron = require('cron');
+const CronTask = new (require('./CronTask'))();
+const ParseBody = new (require('./ParseBody'))();
+const RequestImage = new (require('./RequestImage'))();
+const ValidateImage = new (require('./ValidateImage'))();
 
 module.exports = class Bot {
 
     constructor(client) {
 
         // Discord client
-        this.client = client;
+        this._client = client;
 
         // List of channels
-        this.channels = require("../config/channels.json");
+        this._channels = require("../config/channels.json");
 
         // Cron task execution time
-        this.cronTaskExecutionTime = "*/30 * * * *";
-
-        // Run bot
-        this.cron().catch((e) => console.log(e))
+        this._cronTaskExecutionTime = "*/1 * * * *";
 
     }
 
-    /**
-     * Create and execute cron task
-     * @returns {Promise<void>}
-     */
-    async cron() {
+    run () {
 
-        // Create cron task
-        this.cronJob = new cron.CronJob(this.cronTaskExecutionTime, () => {
+        // Run bot
+        try {
+            this._execute();
+        }
+        catch (e) {
+            console.log(e);
+        }
 
-            // Get random image
-            this.getImage().then(image => {
+    }
 
-                if (image.length > 0) {
+    _execute () {
 
-                    for (let channel of this.channels.list) {
+        CronTask.task(this._cronTaskExecutionTime, () => {
 
-                        console.log(channel);
-                        // Discord channel
-                        let discordChannel = this.client.channels.get(channel);
+            RequestImage.getBody().then((body) => {
 
-                        // Send message
-                        discordChannel.send("", {files: [image]});
-                        console.log(`Request message ${image}`)
+                let imageURI = ParseBody.parseBody(body.data);
+                imageURI = ValidateImage.validate(imageURI);
 
-                    }
+                for (let channel of this._channels.list) {
+
+                    // Discord channel
+                    let discordChannel = this._client.channels.get(channel);
+
+                    // Send message
+                    discordChannel.send("", {files: [imageURI]});
+                    console.log(`Request message ${imageURI}`)
 
                 }
 
@@ -52,47 +54,9 @@ module.exports = class Bot {
 
         });
 
-        // Start cron
-        this.cronJob.start();
+        CronTask.start();
 
     }
 
-    /**
-     * Parse random image
-     * @returns {Promise<*>}
-     */
-    async getImage() {
-
-        try {
-
-            // Request
-            let res = await axios({
-                url: 'http://anime.reactor.cc/random',
-                method: 'get',
-                timeout: 8000,
-            });
-
-            // Html root
-            const $ = cheerio.load(res.data);
-
-            // Parse html
-            // Image
-            let parse = $('div.post_content,allow_long > div.image > a.prettyPhotoLink'),
-                image = parse.find('img').attr('src');
-
-            // Image validation
-            if (image != '//css.reactor.cc/images/unsafe_ru.gif' && image.length > 0) {
-
-                // Return image url
-                return image;
-
-            }
-
-        }
-        catch (err) {
-            console.error(err);
-        }
-
-    }
 
 };
