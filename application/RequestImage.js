@@ -7,7 +7,7 @@ module.exports = class RequestImage {
      * @returns {Promise<AxiosResponse<T>>}
      * @private
      */
-    async _request () {
+    _request () {
 
         return axios.get('http://anime.reactor.cc/random', {
             method: 'get',
