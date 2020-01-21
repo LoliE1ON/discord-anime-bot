@@ -4,7 +4,7 @@
 [![Discord](https://discordapp.com/api/guilds/509065700401348630/widget.png)](http://discord.gg/fTHssTP)
 
 This is a bot for discord.
-He posts random anime pictures with an interval of 30 minutes in the channels you set.
+He posts random anime pictures with an interval of 30 minutes in the channels you set
 
 ## Dependencies
 NodeJS >= 10
